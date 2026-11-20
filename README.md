@@ -1,0 +1,1 @@
+# Mini-Diff-Tool-Plagiarism-Checker
