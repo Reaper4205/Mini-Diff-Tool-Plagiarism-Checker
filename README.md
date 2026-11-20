@@ -273,20 +273,3 @@ When running with sample files `samples/file1.txt` and `samples/file2.txt`:
     File A: Lines 1 to 6 <===> File B: Lines 1 to 6
     ...
 ```
-
----
-
-## 9. Viva / Oral Examination Guide
-
-### Q1: Why is LCS preferred over Hamming Distance or Levenshtein Distance for comparing text files?
-**Answer**: Hamming distance requires both sequences to have the exact same length and only counts substitutions at identical indices. Levenshtein distance works at character level and is computationally expensive for large text files. LCS at line-level naturally accommodates insertions, deletions, and line shifts without misaligning the subsequent unchanged lines.
-
-### Q2: How does the tool differentiate between a Modified line and pure Added/Deleted lines?
-**Answer**: LCS backtracking yields deletions (`-`) and additions (`+`). When a chunk of deletions is immediately adjacent to a chunk of additions between identical anchor lines, it represents an in-place rewrite. The algorithm pairs up the first $\min(D, A)$ lines as `MODIFIED` ($A_k \to B_k$) and treats any surplus as pure insertions or deletions.
-
-### Q3: What is the significance of line-ending normalization (`cleanLine`)?
-**Answer**: Windows files use CRLF (`\r\n`), while Unix files use LF (`\n`). If a student created File A on Windows and File B on Linux or Git, naive string comparison (`==`) would fail on every line due to the trailing `\r`. `cleanLine` removes trailing carriage returns and newlines, ensuring pure content comparison.
-
-### Q4: Does this tool search online databases or Google?
-**Answer**: No. As highlighted in the academic disclaimer, this application operates strictly locally in memory between two user-supplied files. It performs lexical syntactic comparison and does not query external web search engines or private institutional databases.
-
